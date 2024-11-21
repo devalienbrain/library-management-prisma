@@ -11,3 +11,7 @@
 - PostgreSQL
 - Express.js
 - TypeScript
+
+## To run the server
+- tsc
+- node dist/server.js
