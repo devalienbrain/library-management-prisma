@@ -6,8 +6,8 @@
 
 
 ## Technologies Used
-- **Prisma ORM
-- **Node.js
-- **PostgreSQL
-- **Express.js
-- **TypeScript
+- Prisma ORM
+- Node.js
+- PostgreSQL
+- Express.js
+- TypeScript
