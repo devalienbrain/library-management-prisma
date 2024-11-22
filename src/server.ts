@@ -1,19 +1,22 @@
 // src/server.ts
 
-import express, { Request, Response } from 'express';
-import { PrismaClient } from '@prisma/client';
-
+import express, { Request, Response } from "express";
+import { PrismaClient } from "@prisma/client";
+import bookRoutes from "./routes/bookRoutes";
 const app = express();
 const prisma = new PrismaClient();
 
 app.use(express.json());
 
 // Health Check
-app.get('/', (req: Request, res: Response) => {
-  res.send('Library Management API is running');
+app.get("/", (req: Request, res: Response) => {
+  res.send("Library Management API is running");
 });
+
+// Connect book routes
+app.use("/api/books", bookRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Library Management Prisma Server is running on port ${PORT}`);
 });
