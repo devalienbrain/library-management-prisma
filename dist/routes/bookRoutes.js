@@ -10,20 +10,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.bookRoutes = void 0;
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
 const router = (0, express_1.Router)();
 const prisma = new client_1.PrismaClient();
 // Create a new book
-router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, genre, publishedYear, totalCopies, availableCopies } = req.body;
         const newBook = yield prisma.book.create({
             data: { title, genre, publishedYear, totalCopies, availableCopies },
         });
-        res
-            .status(201)
-            .json({
+        res.status(201).json({
             success: true,
             message: "Book created successfully",
             data: newBook,
@@ -36,9 +35,7 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 // Get all books
 router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const books = yield prisma.book.findMany();
-    res
-        .status(200)
-        .json({
+    res.status(200).json({
         success: true,
         message: "Books retrieved successfully",
         data: books,
@@ -49,9 +46,7 @@ router.get("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function*
     const { bookId } = req.params;
     const book = yield prisma.book.findUnique({ where: { bookId } });
     book
-        ? res
-            .status(200)
-            .json({
+        ? res.status(200).json({
             success: true,
             message: "Book retrieved successfully",
             data: book,
@@ -67,9 +62,7 @@ router.put("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, function*
             where: { bookId },
             data: { title, genre, publishedYear, totalCopies, availableCopies },
         });
-        res
-            .status(200)
-            .json({
+        res.status(200).json({
             success: true,
             message: "Book updated successfully",
             data: updatedBook,
@@ -92,4 +85,4 @@ router.delete("/:bookId", (req, res) => __awaiter(void 0, void 0, void 0, functi
         res.status(400).json({ success: false, message: "Failed to delete book" });
     }
 }));
-exports.default = router;
+exports.bookRoutes = router;

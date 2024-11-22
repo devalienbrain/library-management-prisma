@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.borrowRoutes = void 0;
 const express_1 = require("express");
 const client_1 = require("@prisma/client");
 const router = (0, express_1.Router)();
@@ -25,9 +26,7 @@ router.post("/borrow", (req, res) => __awaiter(void 0, void 0, void 0, function*
             where: { bookId },
             data: { availableCopies: { decrement: 1 } },
         });
-        res
-            .status(200)
-            .json({
+        res.status(200).json({
             success: true,
             message: "Book borrowed successfully",
             data: borrowRecord,
@@ -57,4 +56,4 @@ router.post("/return", (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(400).json({ success: false, message: "Failed to return book" });
     }
 }));
-exports.default = router;
+exports.borrowRoutes = router;
