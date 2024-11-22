@@ -2,7 +2,7 @@
 
 ## Important Links
 
-- [Live Link]()
+- [Live Link](https://library-management-prisma.vercel.app/)
 
 ## Book CRUD Operations
 - Create a new book record in the library’s database [Endpoint: POST /api/books]
