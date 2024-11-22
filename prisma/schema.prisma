@@ -30,9 +30,11 @@ model Member {
   name            String
   email           String  @unique
   phone           String
-  membershipDate  DateTime
+  address         String
+  membershipDate  DateTime?  // Optional field
   BorrowRecords   BorrowRecord[]
 }
+
 
 model BorrowRecord {
   borrowId     String  @id @default(uuid())

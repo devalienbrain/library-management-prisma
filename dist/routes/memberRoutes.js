@@ -18,9 +18,16 @@ const prisma = new client_1.PrismaClient();
 // Create a new member
 router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, email, phone, address } = req.body;
+        const { name, email, phone, address, membershipDate } = req.body;
+        // Use the provided membershipDate or default to the current date
         const newMember = yield prisma.member.create({
-            data: { name, email, phone, address },
+            data: {
+                name,
+                email,
+                phone,
+                address,
+                membershipDate: membershipDate || new Date(),
+            },
         });
         res.status(201).json({
             success: true,
@@ -29,9 +36,12 @@ router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         });
     }
     catch (error) {
-        res
-            .status(400)
-            .json({ success: false, message: "Failed to create member" });
+        const errorMessage = error instanceof Error ? error.message : "An unexpected error occurred";
+        res.status(400).json({
+            success: false,
+            message: "Failed to create member",
+            error: errorMessage,
+        });
     }
 }));
 // Get all members

@@ -8,22 +8,37 @@ const prisma = new PrismaClient();
 
 // Create a new member
 router.post("/", async (req: Request, res: Response) => {
-  try {
-    const { name, email, phone, address } = req.body;
-    const newMember = await prisma.member.create({
-      data: { name, email, phone, address },
-    });
-    res.status(201).json({
-      success: true,
-      message: "Member created successfully",
-      data: newMember,
-    });
-  } catch (error) {
-    res
-      .status(400)
-      .json({ success: false, message: "Failed to create member" });
-  }
-});
+    try {
+      const { name, email, phone, address, membershipDate } = req.body;
+  
+      // Use the provided membershipDate or default to the current date
+      const newMember = await prisma.member.create({
+        data: {
+          name,
+          email,
+          phone,
+          address,
+          membershipDate: membershipDate || new Date(),
+        },
+      });
+  
+      res.status(201).json({
+        success: true,
+        message: "Member created successfully",
+        data: newMember,
+      });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "An unexpected error occurred";
+  
+      res.status(400).json({
+        success: false,
+        message: "Failed to create member",
+        error: errorMessage,
+      });
+    }
+  });
+  
 
 // Get all members
 router.get("/", async (req: Request, res: Response) => {
@@ -69,6 +84,7 @@ router.put("/:memberId", async (req: Request, res: Response) => {
       where: { memberId },
       data: { name, email, phone, address },
     });
+
     res.status(200).json({
       success: true,
       message: "Member updated successfully",
