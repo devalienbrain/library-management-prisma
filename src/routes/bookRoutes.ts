@@ -14,13 +14,11 @@ router.post("/", async (req: Request, res: Response) => {
     const newBook = await prisma.book.create({
       data: { title, genre, publishedYear, totalCopies, availableCopies },
     });
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Book created successfully",
-        data: newBook,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Book created successfully",
+      data: newBook,
+    });
   } catch (error) {
     res.status(400).json({ success: false, message: "Failed to create book" });
   }
@@ -29,13 +27,11 @@ router.post("/", async (req: Request, res: Response) => {
 // Get all books
 router.get("/", async (req: Request, res: Response) => {
   const books = await prisma.book.findMany();
-  res
-    .status(200)
-    .json({
-      success: true,
-      message: "Books retrieved successfully",
-      data: books,
-    });
+  res.status(200).json({
+    success: true,
+    message: "Books retrieved successfully",
+    data: books,
+  });
 });
 
 // Get a book by ID
@@ -43,13 +39,11 @@ router.get("/:bookId", async (req: Request, res: Response) => {
   const { bookId } = req.params;
   const book = await prisma.book.findUnique({ where: { bookId } });
   book
-    ? res
-        .status(200)
-        .json({
-          success: true,
-          message: "Book retrieved successfully",
-          data: book,
-        })
+    ? res.status(200).json({
+        success: true,
+        message: "Book retrieved successfully",
+        data: book,
+      })
     : res.status(404).json({ success: false, message: "Book not found" });
 });
 
@@ -63,13 +57,11 @@ router.put("/:bookId", async (req: Request, res: Response) => {
       where: { bookId },
       data: { title, genre, publishedYear, totalCopies, availableCopies },
     });
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Book updated successfully",
-        data: updatedBook,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Book updated successfully",
+      data: updatedBook,
+    });
   } catch (error) {
     res.status(400).json({ success: false, message: "Failed to update book" });
   }
@@ -88,4 +80,4 @@ router.delete("/:bookId", async (req: Request, res: Response) => {
   }
 });
 
-export default router;
+export const bookRoutes = router;

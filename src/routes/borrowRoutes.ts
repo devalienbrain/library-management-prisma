@@ -17,13 +17,11 @@ router.post("/borrow", async (req: Request, res: Response) => {
       where: { bookId },
       data: { availableCopies: { decrement: 1 } },
     });
-    res
-      .status(200)
-      .json({
-        success: true,
-        message: "Book borrowed successfully",
-        data: borrowRecord,
-      });
+    res.status(200).json({
+      success: true,
+      message: "Book borrowed successfully",
+      data: borrowRecord,
+    });
   } catch (error) {
     res.status(400).json({ success: false, message: "Failed to borrow book" });
   }
@@ -49,4 +47,4 @@ router.post("/return", async (req: Request, res: Response) => {
   }
 });
 
-export default router;
+export const borrowRoutes = router;
