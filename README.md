@@ -18,6 +18,10 @@
 - Updates information of an existing memeber by its memeberId [Endpoint: PUT /api/memebers/:memeberId]
 - Deletes a memeber from the library by its memeberId [Endpoint: DELETE /api/memebers/:memeberId]
 
+## Borrow and Return books
+- Borrow a book by bookId and memberId [Endpoint: POST /api/borrow]
+- Return a book by borrowId [Endpoint: POST /api/return]
+
 ## To run the server
 - tsc
 - node dist/server.js
