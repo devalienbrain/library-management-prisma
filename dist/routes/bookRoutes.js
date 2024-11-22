@@ -16,7 +16,7 @@ const client_1 = require("@prisma/client");
 const router = (0, express_1.Router)();
 const prisma = new client_1.PrismaClient();
 // Create a new book
-router.post("/create", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { title, genre, publishedYear, totalCopies, availableCopies } = req.body;
         const newBook = yield prisma.book.create({

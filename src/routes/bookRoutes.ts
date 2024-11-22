@@ -7,7 +7,7 @@ const router = Router();
 const prisma = new PrismaClient();
 
 // Create a new book
-router.post("/create", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const { title, genre, publishedYear, totalCopies, availableCopies } =
       req.body;
